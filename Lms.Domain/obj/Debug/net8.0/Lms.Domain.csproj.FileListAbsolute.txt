@@ -1,0 +1,12 @@
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\bin\Debug\net8.0\Lms.Domain.deps.json
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\bin\Debug\net8.0\Lms.Domain.dll
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\bin\Debug\net8.0\Lms.Domain.pdb
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.csproj.AssemblyReference.cache
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.AssemblyInfoInputs.cache
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.AssemblyInfo.cs
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.csproj.CoreCompileInputs.cache
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.dll
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\refint\Lms.Domain.dll
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.pdb
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\ref\Lms.Domain.dll
