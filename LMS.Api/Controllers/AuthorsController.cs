@@ -1,10 +1,8 @@
 ﻿using Lms.Application.Commands.Authors;
 using Lms.Application.DTOs;
 using Lms.Application.Queries.Authors;
-using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS.Api.Controllers
@@ -96,6 +94,28 @@ namespace LMS.Api.Controllers
                 };
                 var updatedAuthor = await _mediator.Send(command,CancellationToken.None);
                 return Ok(updatedAuthor);
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+        }
+
+
+        //delete
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAuthor([FromRoute] int id)
+        {
+            try
+            {
+                var command = new DeleteAuthorCommand(id);
+                var deletedAuthor = await _mediator.Send(command, CancellationToken.None);
+                if (deletedAuthor == null || deletedAuthor.Success == 0)
+                {
+                    return NotFound(deletedAuthor);
+                }
+                return Ok(deletedAuthor);
             }
             catch
             {

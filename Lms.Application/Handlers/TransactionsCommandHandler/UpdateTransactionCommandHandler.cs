@@ -25,6 +25,7 @@ namespace Lms.Application.Handlers.TransactionsCommandHandler
                 StudentId = request.StudentId,
                 UserId = request.UserId,
                 BookId = request.BookId,
+                BarCode = request.BarCode,
                 TransactionType = request.TransactionType,
                 Date = request.Date
             };

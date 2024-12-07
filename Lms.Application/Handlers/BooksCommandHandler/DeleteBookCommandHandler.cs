@@ -1,4 +1,5 @@
 ﻿using Lms.Application.Commands.Books;
+using Lms.Domain.Models;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.BooksCommandHandler
 {
-    public class DeleteBookCommandHandler: IRequestHandler<DeleteBookCommand,Unit>
+    public class DeleteBookCommandHandler: IRequestHandler<DeleteBookCommand,DeleteOperationResult>
     {
         private readonly IBookService _bookService;
         public DeleteBookCommandHandler(IBookService bookService)
@@ -18,15 +19,15 @@ namespace Lms.Application.Handlers.BooksCommandHandler
             _bookService = bookService;
 
         }
-        public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteOperationResult> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
             var book = new BooksEntity
             {
                 BookId = request.BookId,
                 
             };
-            await _bookService.DeleteBookAsync(book.BookId);
-            return Unit.Value;
+            return await _bookService.DeleteBookAsync(book.BookId);
+            
         }
     }
 }

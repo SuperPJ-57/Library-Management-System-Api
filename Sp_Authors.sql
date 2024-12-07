@@ -135,11 +135,22 @@ BEGIN
         -- Delete Operation
         ELSE IF @flag = 'D'
         BEGIN
-            DELETE FROM Authors 
+			
+            if exists (select 1 from authors where isdeleted = 0
+			and AuthorID = @AuthorID)
+			begin
+			 update Authors set IsDeleted = 1 
             WHERE AuthorId = @AuthorID;
 
-            -- Optionally, you could return a confirmation message or affected rows count
-            SELECT 1 AS Success, 'Author deleted successfully.' AS Message;
+            -- Return the deleted student details
+            SELECT 1 AS Success,@AuthorID as Id, 'Author deleted successfully.' AS Message;
+
+			end
+			else
+			begin
+			SELECT 0 AS Success,@AuthorID as Id, 'Author could not be found.' AS Message;
+			end
+           
 
             COMMIT TRAN;
             RETURN;
@@ -194,4 +205,4 @@ BEGIN
 END;
 GO
 
-exec Sp_Authors @flag = 'S', @AuthorID = 1;
+--exec Sp_Authors @flag = 'S', @AuthorID = 1;

@@ -95,6 +95,7 @@ namespace LMS.Api.Controllers
                     StudentId = transactionDto.StudentId,
                     UserId = transactionDto.UserId,
                     BookId = transactionDto.BookId,
+                    BarCode = transactionDto.BarCode,
                     TransactionType = transactionDto.TransactionType,
                     Date = transactionDto.Date
 
@@ -105,6 +106,28 @@ namespace LMS.Api.Controllers
                     return NotFound();
                 }
                 return Ok(updatedTransaction);
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+        }
+
+        //delete
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTransaction([FromRoute] int id)
+        {
+            try
+            {
+                var command = new DeleteTransactionCommand(id);
+                var deletedTransaction = await _mediator.Send(command, CancellationToken.None);
+                if (deletedTransaction == null || deletedTransaction.Success == 0)
+                {
+                    return BadRequest(deletedTransaction);
+
+                }
+                return Ok(deletedTransaction);
             }
             catch
             {

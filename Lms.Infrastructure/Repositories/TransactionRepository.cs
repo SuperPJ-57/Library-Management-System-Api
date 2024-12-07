@@ -1,14 +1,10 @@
 ﻿using Dapper;
 using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
+using Lms.Domain.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lms.Infrastructure.Repositories
 {
@@ -59,10 +55,11 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@StudentId", transaction.StudentId);
                 parameters.Add("@UserId", transaction.UserId);
                 parameters.Add("@BookId", transaction.BookId);
+                parameters.Add("@BarCode", transaction.BarCode);
                 parameters.Add("@TransactionType", transaction.TransactionType);
                 parameters.Add("@Date", transaction.Date);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<TransactionsEntity>(
                     "SP_Transactions",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -81,10 +78,11 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@StudentId", transaction.StudentId);
                 parameters.Add("@UserId", transaction.UserId);
                 parameters.Add("@BookId", transaction.BookId);
+                parameters.Add("@BarCode", transaction.BarCode);
                 parameters.Add("@TransactionType", transaction.TransactionType);
                 parameters.Add("@Date", transaction.Date);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<TransactionsEntity>(
                     "SP_Transactions",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -93,7 +91,7 @@ namespace Lms.Infrastructure.Repositories
             }
         }
 
-        public async Task<string> DeleteTransactionAsync(int transactionId)
+        public async Task<DeleteOperationResult?> DeleteTransactionAsync(int transactionId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -101,12 +99,12 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@flag", "D");
                 parameters.Add("@TransactionID", transactionId);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<DeleteOperationResult>(
                     "SP_Transactions",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
-                return result?.Msg ?? "Operation failed.";
+                return result;
             }
         }
     }

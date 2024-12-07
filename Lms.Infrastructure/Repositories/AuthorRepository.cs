@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
+using Lms.Domain.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
@@ -57,7 +58,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@Name", author.Name);
                 parameters.Add("@Bio", author.Bio);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<AuthorsEntity>(
                     "SP_Authors",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -76,7 +77,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@Name", author.Name);
                 parameters.Add("@Bio", author.Bio);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<AuthorsEntity>(
                     "SP_Authors",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -85,7 +86,7 @@ namespace Lms.Infrastructure.Repositories
             }
         }
 
-        public async Task<string> DeleteAuthorAsync(int authorId)
+        public async Task<DeleteOperationResult?> DeleteAuthorAsync(int authorId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -93,12 +94,12 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@flag", "D");
                 parameters.Add("@AuthorID", authorId);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<DeleteOperationResult>(
                     "SP_Authors",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
-                return result?.Msg ?? "Operation failed.";
+                return result;
             }
         }
     }

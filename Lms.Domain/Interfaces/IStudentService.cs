@@ -1,9 +1,5 @@
 ﻿using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Models;
 
 namespace Lms.Domain.Interfaces
 {
@@ -13,6 +9,6 @@ namespace Lms.Domain.Interfaces
         Task<StudentsEntity> GetStudentByIdAsync(int studentId);
         Task<StudentsEntity> AddStudentAsync(StudentsEntity student);
         Task<StudentsEntity> UpdateStudentAsync(StudentsEntity student);
-        Task DeleteStudentAsync(int studentId);
+        Task<DeleteOperationResult> DeleteStudentAsync(int studentId);
     }
 }

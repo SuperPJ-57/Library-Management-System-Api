@@ -20,8 +20,8 @@ namespace Lms.Application.Handlers.BooksCommandHandler
                 Title = request.Title,
                 AuthorId = request.AuthorId,
                 Genre = request.Genre,
-                ISBN = request.ISBN,
-                Quantity = request.Quantity
+                ISBN = request.ISBN
+
             };
             return await _bookService.AddBookAsync(book);
             

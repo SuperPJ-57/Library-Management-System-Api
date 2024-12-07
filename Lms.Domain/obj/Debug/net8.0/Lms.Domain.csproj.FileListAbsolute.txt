@@ -10,3 +10,4 @@ E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\n
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\refint\Lms.Domain.dll
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.pdb
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\ref\Lms.Domain.dll
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Domain\obj\Debug\net8.0\Lms.Domain.sourcelink.json

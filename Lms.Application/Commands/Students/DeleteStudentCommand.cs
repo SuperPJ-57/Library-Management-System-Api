@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Lms.Domain.Models;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Commands.Students
 {
-    public record DeleteStudentCommand : IRequest<Unit>
+    public record DeleteStudentCommand : IRequest<DeleteOperationResult>
     {
         public DeleteStudentCommand(int sid)
         {

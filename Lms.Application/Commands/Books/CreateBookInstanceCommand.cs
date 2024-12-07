@@ -1,4 +1,4 @@
-﻿using Lms.Domain.Models;
+﻿using Lms.Domain.Entitites;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,9 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Commands.Books
 {
-    public record DeleteBookCommand: IRequest<DeleteOperationResult>
+    public record CreateBookInstanceCommand: IRequest<BookCopies>
     {
-
         public int BookId { get; set; }
-        public DeleteBookCommand(int bid)
-        {
-            BookId = bid;
-        }
+        public int BarCode { get; set; }
     }
 }

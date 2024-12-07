@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Lms.Domain.Models;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Commands.Transactions
 {
-    public record DeleteTransactionCommand: IRequest<Unit>
+    public record DeleteTransactionCommand: IRequest<DeleteOperationResult>
     {
         public DeleteTransactionCommand(int tid)
         {

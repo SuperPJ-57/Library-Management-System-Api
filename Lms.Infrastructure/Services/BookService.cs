@@ -1,11 +1,7 @@
-﻿using Lms.Domain.Interfaces;
-using Lms.Application.Interfaces;
+﻿using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 
 namespace Lms.Infrastructure.Services
 {
@@ -20,10 +16,14 @@ namespace Lms.Infrastructure.Services
         {
             return await _bookRepository.AddBookAsync(book);
         }
-
-        public async Task DeleteBookAsync(int bookId)
+        public async Task<BookCopies> AddBookInstanceAsync(BookCopies bCopy)
         {
-            await _bookRepository.DeleteBookAsync(bookId);
+            return await _bookRepository.AddBookInstanceAsync(bCopy);
+        }
+
+        public async Task<DeleteOperationResult> DeleteBookAsync(int bookId)
+        {
+            return await _bookRepository.DeleteBookAsync(bookId);
         }
 
         public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync()

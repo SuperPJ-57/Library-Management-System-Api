@@ -1,25 +1,21 @@
 ﻿using Lms.Application.Commands.Authors;
-using Lms.Application.Interfaces;
+using Lms.Domain.Models;
+using Lms.Domain.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.AuthorsCommandHandler
 {
-    public class DeleteAuthorCommandHandler:IRequestHandler<DeleteAuthorCommand,Unit>
+    public class DeleteAuthorCommandHandler:IRequestHandler<DeleteAuthorCommand,DeleteOperationResult>
     {
-        private readonly IAuthorRepository _authorRepository;
-        public DeleteAuthorCommandHandler(IAuthorRepository authorRepository)
+        private readonly IAuthorService _authorService;
+        public DeleteAuthorCommandHandler(IAuthorService authorService)
         {
-            _authorRepository = authorRepository;
+            _authorService = authorService;
         }
-        public async Task<Unit> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteOperationResult> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
         {
-            await _authorRepository.DeleteAuthorAsync(request.AuthorId);
-            return Unit.Value;
+            return await _authorService.DeleteAuthorAsync(request.AuthorId);
+            
         }
     }
 }

@@ -1,29 +1,32 @@
-﻿using Lms.Domain.Interfaces;
-using Lms.Application.Interfaces;
+﻿using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 
 namespace Lms.Infrastructure.Services
 {
     public class TransactionService: ITransactionService
     {
         private readonly ITransactionRepository _transactionRepository;
-        public TransactionService(ITransactionRepository transactionRepository)
+        private readonly IStudentRepository _studentRepository;
+        public TransactionService(ITransactionRepository transactionRepository,IStudentRepository studentRepository)
         {
             _transactionRepository = transactionRepository;
+            _studentRepository = studentRepository;
         }
         public async Task<TransactionsEntity> AddTransactionAsync(TransactionsEntity transaction)
         {
+            var result = await _studentRepository.GetStudentByIdAsync(transaction.StudentId);
+            if(result == null)
+            {
+                throw new Exception("Student not found");
+            }
             return await _transactionRepository.AddTransactionAsync(transaction);
         }
 
-        public async Task DeleteTransactionAsync(int transactionId)
+        public async Task<DeleteOperationResult> DeleteTransactionAsync(int transactionId)
         {
-            await _transactionRepository.DeleteTransactionAsync(transactionId);
+            return await _transactionRepository.DeleteTransactionAsync(transactionId);
         }
 
         public async Task<IEnumerable<TransactionsEntity>> GetAllTransactionsAsync()

@@ -18,6 +18,7 @@ namespace Lms.Application.Commands.Transactions
         public int UserId { get; set; }
 
         public int BookId { get; set; }
+        public int BarCode { get; set; }
         public string TransactionType { get; set; }
         public DateTime Date { get; set; } = new DateTime(DateTimeUtility.Year,DateTimeUtility.Month,DateTimeUtility.Day);
         

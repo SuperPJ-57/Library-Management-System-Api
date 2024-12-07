@@ -1,11 +1,7 @@
-﻿using Lms.Domain.Interfaces;
-using Lms.Application.Interfaces;
+﻿using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 
 namespace Lms.Infrastructure.Services
 {
@@ -21,9 +17,9 @@ namespace Lms.Infrastructure.Services
             return await _studentRepository.AddStudentAsync(student);
         }
 
-        public async Task DeleteStudentAsync(int studentId)
+        public async Task<DeleteOperationResult> DeleteStudentAsync(int studentId)
         {
-            await _studentRepository.DeleteStudentAsync(studentId);
+            return await _studentRepository.DeleteStudentAsync(studentId);
         }
 
         public async Task<IEnumerable<StudentsEntity>> GetAllStudentsAsync()

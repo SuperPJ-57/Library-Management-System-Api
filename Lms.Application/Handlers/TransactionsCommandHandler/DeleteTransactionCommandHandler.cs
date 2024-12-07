@@ -1,30 +1,26 @@
 ﻿using Lms.Application.Commands.Transactions;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.TransactionsCommandHandler
 {
-    public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand, Unit>
+    public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand, DeleteOperationResult>
     {
         private readonly ITransactionService _transactionService;
         public DeleteTransactionCommandHandler(ITransactionService transactionService)
         {
             _transactionService = transactionService;
         }
-        public async Task<Unit> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteOperationResult> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
         {
             var transaction = new TransactionsEntity
             {
                 TransactionId = request.TransactionId
             };
-            await _transactionService.DeleteTransactionAsync(transaction.TransactionId);
-            return Unit.Value;
+            return await _transactionService.DeleteTransactionAsync(transaction.TransactionId);
+            
 
         }
     }

@@ -102,5 +102,29 @@ namespace LMS.Api.Controllers
                 return StatusCode(500, errorMessage);
             }
         }
+
+
+        //-------------
+        //delete
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook([FromRoute] int id)
+        {
+            try
+            {
+                var command = new DeleteBookCommand(id);
+                var deletedBook = await _mediator.Send(command, CancellationToken.None);
+                if (deletedBook == null || deletedBook.Success == 0)
+                {
+                    return NotFound(deletedBook);
+                }
+                return Ok(deletedBook);
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+        }
+
     }
 }

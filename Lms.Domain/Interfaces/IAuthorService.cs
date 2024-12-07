@@ -1,9 +1,6 @@
 ﻿using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Models;
+
 
 namespace Lms.Domain.Interfaces
 {
@@ -13,6 +10,6 @@ namespace Lms.Domain.Interfaces
         Task<AuthorsEntity> GetAuthorByIdAsync(int authorId);
         Task<AuthorsEntity> AddAuthorAsync(AuthorsEntity author);
         Task<AuthorsEntity> UpdateAuthorAsync(AuthorsEntity author);
-        Task DeleteAuthorAsync(int authorId);
+        Task<DeleteOperationResult> DeleteAuthorAsync(int authorId);
     }
 }

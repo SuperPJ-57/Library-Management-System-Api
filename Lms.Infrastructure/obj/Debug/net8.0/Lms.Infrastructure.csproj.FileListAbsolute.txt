@@ -15,3 +15,4 @@ E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Infrastructure\obj
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Infrastructure\obj\Debug\net8.0\refint\Lms.Infrastructure.dll
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Infrastructure\obj\Debug\net8.0\Lms.Infrastructure.pdb
 E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Infrastructure\obj\Debug\net8.0\ref\Lms.Infrastructure.dll
+E:\OneDrive - Hetauda School of Management\Full Stack\lms\Lms.Infrastructure\obj\Debug\net8.0\Lms.Infrastructure.sourcelink.json

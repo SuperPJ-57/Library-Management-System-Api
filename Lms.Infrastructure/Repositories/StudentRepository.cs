@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
+using Lms.Domain.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
@@ -56,7 +57,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@ContactNumber", student.ContactNumber);
                 parameters.Add("@Department", student.Department);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<StudentsEntity>(
                     "SP_Students",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -77,7 +78,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@ContactNumber", student.ContactNumber);
                 parameters.Add("@Department", student.Department);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<StudentsEntity>(
                     "SP_Students",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -86,7 +87,7 @@ namespace Lms.Infrastructure.Repositories
             }
         }
 
-        public async Task<string> DeleteStudentAsync(int studentId)
+        public async Task<DeleteOperationResult?> DeleteStudentAsync(int studentId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -94,12 +95,12 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@flag", "D");
                 parameters.Add("@StudentID", studentId);
 
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                var result = await connection.QueryFirstOrDefaultAsync<DeleteOperationResult>(
                     "SP_Students",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
-                return result?.Msg ?? "Operation failed.";
+                return result;
             }
         }
     }

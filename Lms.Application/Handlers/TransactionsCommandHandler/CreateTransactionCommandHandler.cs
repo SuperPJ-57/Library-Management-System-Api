@@ -20,7 +20,9 @@ namespace Lms.Application.Handlers.TransactionsCommandHandler
                 StudentId = request.StudentId,
                 UserId = request.UserId,
                 BookId = request.BookId,
-                TransactionType = request.TransactionType
+                BarCode = request.BarCode,
+                TransactionType = request.TransactionType,
+                Date = request.Date
             };
             return await _transactionService.AddTransactionAsync(transaction);
             

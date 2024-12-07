@@ -145,18 +145,26 @@ BEGIN
         ELSE IF @flag = 'D'
         BEGIN
             -- Capture the student details before deletion if needed
-            DECLARE @DeletedStudent TABLE (StudentID INT, Name VARCHAR(255), Email VARCHAR(255), ContactNumber VARCHAR(15), Department VARCHAR(100));
-            INSERT INTO @DeletedStudent
-            SELECT * 
-            FROM Students 
-            WHERE StudentID = @StudentID;
-
-            DELETE FROM Students 
+            --DECLARE @DeletedStudent TABLE (StudentID INT, Name VARCHAR(255), Email VARCHAR(255), ContactNumber VARCHAR(15), Department VARCHAR(100));
+            --INSERT INTO @DeletedStudent
+            --SELECT * 
+            --FROM Students 
+            --WHERE StudentID = @StudentID;
+			if exists (select 1 from students where isdeleted = 0
+			and studentid = @StudentID)
+			begin
+			 update Students set IsDeleted = 1 
             WHERE StudentID = @StudentID;
 
             -- Return the deleted student details
-            SELECT * 
-            FROM @DeletedStudent;
+            SELECT 1 AS Success,@StudentID as Id, 'Student deleted successfully.' AS Message;
+
+			end
+			else
+			begin
+			SELECT 0 AS Success,@StudentID as Id, 'Student could not be found.' AS Message;
+			end
+           
 
             COMMIT TRAN;
             RETURN;
@@ -167,14 +175,14 @@ BEGIN
         BEGIN
             IF @StudentID IS NOT NULL
             BEGIN
-                SELECT * 
+                SELECT StudentId,Name,Email,ContactNumber,Department 
                 FROM Students 
-                WHERE StudentID = @StudentID;
+                WHERE StudentID = @StudentID and IsDeleted = 0;
             END
             ELSE
             BEGIN
-                SELECT * 
-                FROM Students;
+                SELECT StudentId,Name,Email,ContactNumber,Department
+                FROM Students where IsDeleted = 0;
             END
 
             COMMIT TRAN;
@@ -210,4 +218,7 @@ BEGIN
     END CATCH
 END;
 GO
-exec Sp_Students @flag = 'S', @StudentID = 1;
+
+
+
+--exec Sp_Students @flag = 'S', @StudentID = 1;

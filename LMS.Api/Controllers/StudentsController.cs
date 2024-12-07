@@ -1,5 +1,4 @@
 ﻿using Lms.Application.Commands.Students;
-using Lms.Application.Commands.Students;
 using Lms.Application.DTOs;
 using Lms.Application.Queries.Students;
 using Lms.Domain.Interfaces;
@@ -98,6 +97,29 @@ namespace LMS.Api.Controllers
                 };
                 var updatedStudent = await _mediator.Send(command, CancellationToken.None);
                 return Ok(updatedStudent);
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+        }
+
+
+        //-----------
+        //delete
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStudent([FromRoute] int id)
+        {
+            try
+            {
+                var command = new DeleteStudentCommand(id);
+                var deletedStudent = await _mediator.Send(command, CancellationToken.None);
+                if (deletedStudent == null || deletedStudent.Success == 0)
+                {
+                    return NotFound(deletedStudent);
+                }
+                return Ok(deletedStudent);
             }
             catch
             {

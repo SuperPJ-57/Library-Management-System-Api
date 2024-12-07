@@ -1,4 +1,5 @@
 ﻿using Lms.Domain.Entitites;
+using Lms.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace Lms.Domain.Interfaces
         Task<IEnumerable<BooksEntity>> GetAllBooksAsync();
         Task<BooksEntity> GetBookByIdAsync(int bookId);
         Task<BooksEntity> AddBookAsync(BooksEntity book);
+        Task<BookCopies> AddBookInstanceAsync(BookCopies bCopy);
         Task<BooksEntity> UpdateBookAsync(BooksEntity book);
-        Task DeleteBookAsync(int bookId);
+        Task<DeleteOperationResult> DeleteBookAsync(int bookId);
     }
 }

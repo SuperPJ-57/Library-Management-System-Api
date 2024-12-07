@@ -1,6 +1,7 @@
 ﻿using Lms.Application.Commands.Students;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,21 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.StudentsCommandHandler
 {
-    public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand, Unit>
+    public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand, DeleteOperationResult>
     {
         private readonly IStudentService _studentService;
         public DeleteStudentCommandHandler(IStudentService studentService)
         {
             _studentService = studentService;
         }
-        public async Task<Unit> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteOperationResult> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
         {
             var student = new StudentsEntity
             {
                 StudentId = request.StudentId
             };
-            await _studentService.DeleteStudentAsync(student.StudentId);
-            return Unit.Value;
+            return await _studentService.DeleteStudentAsync(student.StudentId);
+            
         }
     }
 }

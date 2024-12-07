@@ -15,7 +15,7 @@ namespace Lms.Application.Commands.Books
         public int AuthorId { get; set; }
         public string Genre { get; set; }
         public string ISBN { get; set; }
-        public int Quantity { get; set; }
+        //public int Quantity { get; set; }
         //public CreateBookCommand(int bid, string title, int aid, string genre, string isbn, int quantity)
         //{
         //    Title = title;

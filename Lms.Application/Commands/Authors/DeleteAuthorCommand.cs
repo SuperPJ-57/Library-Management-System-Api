@@ -1,9 +1,10 @@
-﻿using Lms.Domain.Entitites;
+﻿using Lms.Domain.Models;
+using Lms.Domain.Entitites;
 using MediatR;
 
 namespace Lms.Application.Commands.Authors
 {
-    public record DeleteAuthorCommand: IRequest<Unit>
+    public record DeleteAuthorCommand: IRequest<DeleteOperationResult>
     {
         public DeleteAuthorCommand(int aid)
         {

@@ -1,11 +1,7 @@
-﻿using Lms.Domain.Interfaces;
-using Lms.Application.Interfaces;
+﻿using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 
 namespace Lms.Infrastructure.Services
 {
@@ -21,9 +17,9 @@ namespace Lms.Infrastructure.Services
             return await _authorRepository.AddAuthorAsync(author);
         }
 
-        public async Task DeleteAuthorAsync(int authorId)
+        public async Task<DeleteOperationResult> DeleteAuthorAsync(int authorId)
         {
-            await _authorRepository.DeleteAuthorAsync(authorId);
+            return await _authorRepository.DeleteAuthorAsync(authorId);
         }
 
         public async Task<IEnumerable<AuthorsEntity>> GetAllAuthorsAsync()
