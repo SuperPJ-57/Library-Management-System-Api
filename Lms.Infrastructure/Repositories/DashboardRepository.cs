@@ -20,12 +20,13 @@ namespace Lms.Infrastructure.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); ;
         }
-        public async Task<DashboardData?> GetDashboardDataAsync()
+        public async Task<DashboardData?> GetDashboardDataAsync(string username)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
+                parameters.Add("@Username", username);
 
                 return await connection.QueryFirstOrDefaultAsync<DashboardData?>(
                    "SP_Dashboard",

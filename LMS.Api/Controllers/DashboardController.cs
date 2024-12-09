@@ -19,12 +19,12 @@ namespace LMS.Api.Controllers
             _errorHandlingService = errorHandlingService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details()
+        [HttpGet("{username}")]
+        public async Task<IActionResult> Details(string username)
         {
             try
             {
-                var dashboardData = await _mediator.Send(new GetDashboardDataQuery(), CancellationToken.None);
+                var dashboardData = await _mediator.Send(new GetDashboardDataQuery(username), CancellationToken.None);
                 if (dashboardData == null) 
                 {
                     return NotFound();

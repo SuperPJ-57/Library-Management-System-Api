@@ -1,5 +1,6 @@
-create proc Sp_Dashboard
-@flag char(2)
+alter proc Sp_Dashboard
+@flag char(2),
+@Username varchar(255) = null
 as 
 begin
 begin try
@@ -16,6 +17,9 @@ begin try
 				Declare @tub int;
 				Declare @tb int;
 				Declare @ab int;
+				Declare @userid int;
+				Declare @email varchar(255);
+				Declare @role varchar(11);
 
 				select @tbb = count(*)   from transactions where status =0;
 
@@ -32,11 +36,20 @@ begin try
 				select @ab = count(barcode) from bookcopies
 				where isavailable = 1;
 
+				select @userid = UserId from Users where Username= @Username;
+
+				select @email = Email from Users where Username= @Username;
+
+				select @role = Role from Users where Username= @Username;
+
 				select @tbb as TotalBorrowedBooks,
 				@trb as TotalReturnedBooks,
 				@tub as TotalUserBase,
 				@tb as TotalBooks,
-				@ab as AvailableBooks;
+				@ab as AvailableBooks,
+				@userid as UserId,
+				@email as Email,
+				@role as Role;
 				
 				
 
@@ -45,9 +58,23 @@ begin try
 	return
 end try
 begin catch
+	--Rollback transaction in case of error
+	IF @@TRANCOUNT > 0
+		ROLLBACK TRAN;
 
+		--Capture and display error details
+		DECLARE @ErrorMessage NVARCHAR(4000);
+		DECLARE @ErrorSeverity INT;
+		DECLARE @ErrorState INT;
+
+		SELECT
+			@ErrorMessage = ERROR_MESSAGE(),
+			@ErrorSeverity = ERROR_SEVERITY(),
+			@ErrorState = ERROR_STATE();
+
+		RAISERROR(@ErrorMessage,@ErrorSeverity,@ErrorState);
 end catch
 end
 go
 
---exec sp_Dashboard @flag='S';
+exec sp_Dashboard @flag='S', @Username='admin';

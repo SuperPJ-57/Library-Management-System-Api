@@ -15,7 +15,7 @@ namespace Lms.Application.Handlers.Dashboard
         }
         public async Task<DashboardData> Handle(GetDashboardDataQuery request, CancellationToken cancellationToken)
         {
-            return await _dashboardService.GetDashboardDataAsync();
+            return await _dashboardService.GetDashboardDataAsync(request.Username);
         }
     }
 }

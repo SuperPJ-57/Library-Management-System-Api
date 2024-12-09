@@ -16,9 +16,9 @@ namespace Lms.Infrastructure.Services
         {
             _dashboardRepository = dashboardRepository;
         }
-        public async Task<DashboardData> GetDashboardDataAsync()
+        public async Task<DashboardData> GetDashboardDataAsync(string username)
         {
-            return await _dashboardRepository.GetDashboardDataAsync();
+            return await _dashboardRepository.GetDashboardDataAsync(username);
         }
         
     }

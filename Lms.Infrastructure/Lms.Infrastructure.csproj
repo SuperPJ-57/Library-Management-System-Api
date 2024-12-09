@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0-preview3.24332.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />

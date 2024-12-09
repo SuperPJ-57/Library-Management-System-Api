@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Data.SqlClient;
+using System.Data;
 namespace Lms.Infrastructure
 {
     public static class DependencyInjection
@@ -21,6 +23,7 @@ namespace Lms.Infrastructure
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IDashboardService, DashboardService>();
+            
 
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
@@ -30,6 +33,10 @@ namespace Lms.Infrastructure
             services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<JwtTokenHelper>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            
+
             services.AddScoped(typeof(IErrorHandlingService<>), typeof(ErrorHandlingService<>));
             //configure JWT authentication middleware
             services.AddAuthentication(opt =>

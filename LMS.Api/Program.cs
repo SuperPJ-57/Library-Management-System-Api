@@ -1,4 +1,7 @@
 
+using Microsoft.Data.SqlClient;
+using System.Data;
+
 namespace LMS.Api
 {
     public class Program
@@ -15,9 +18,10 @@ namespace LMS.Api
             builder.Services.AddSwaggerGen();
             builder.Services.AddLMSDI(builder.Configuration);
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddTransient<IDbConnection>(sp => new SqlConnection(connectionString));
 
-             
-            
+
+
             //Add CORS services and configure policies
             builder.Services.AddCors(opt =>
             {

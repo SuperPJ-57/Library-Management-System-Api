@@ -9,6 +9,6 @@ namespace Lms.Domain.Interfaces
 {
     public interface IDashboardService
     {
-        Task<DashboardData> GetDashboardDataAsync();
+        Task<DashboardData> GetDashboardDataAsync(string username);
     }
 }

@@ -4,6 +4,6 @@ namespace Lms.Application.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<DashboardData?> GetDashboardDataAsync();
+        Task<DashboardData?> GetDashboardDataAsync(string username);
     }
 }

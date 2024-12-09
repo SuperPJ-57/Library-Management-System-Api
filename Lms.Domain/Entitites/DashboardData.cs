@@ -13,5 +13,8 @@ namespace Lms.Domain.Entitites
         public int TotalUserBase { get; set; }
         public int TotalBooks { get; set; }
         public int AvailableBooks { get; set; }
+        public int UserId { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
     }
 }

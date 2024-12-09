@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Queries.Dashboard
 {
-    public record GetDashboardDataQuery:IRequest<DashboardData>
+    public record GetDashboardDataQuery(string Username):IRequest<DashboardData>
     {
     }
 }
