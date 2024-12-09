@@ -8,6 +8,7 @@ BEGIN
     SET quantity = quantity - 1
     FROM books
     INNER JOIN INSERTED i ON books.BookId = i.BookId;
+	
 END;
 
 
@@ -73,7 +74,7 @@ BEGIN
 
         -- Perform the soft delete operation
         UPDATE BookCopies
-        SET IsDeleted = 1
+        SET IsDeleted = 1, IsAvailable = 0
         WHERE BarCode IN (SELECT BarCode FROM DELETED);
 
 		update books 

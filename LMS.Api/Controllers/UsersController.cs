@@ -33,8 +33,30 @@ namespace LMS.Api.Controllers
             }
         }
 
+        //get user by username
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetUserByUsername([FromRoute] string username)
+        {
+            try
+            {
+                var query = new GetUserByUsernameQuery(username);
+                var user = await _mediator.Send(query, CancellationToken.None);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return Ok(user);
+
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+
+        }
         //get user by id
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)
         {
             try
@@ -55,7 +77,6 @@ namespace LMS.Api.Controllers
             }
 
         }
-
 
         //getalluser, getuserbyusername,  updateuser, deleteuser
     }

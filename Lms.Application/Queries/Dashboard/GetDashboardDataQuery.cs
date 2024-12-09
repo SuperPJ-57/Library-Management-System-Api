@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lms.Application.Queries.Users
+namespace Lms.Application.Queries.Dashboard
 {
-    public record GetUserByIdQuery(int Id) : IRequest<UsersEntity>
+    public record GetDashboardDataQuery:IRequest<DashboardData>
     {
     }
 }

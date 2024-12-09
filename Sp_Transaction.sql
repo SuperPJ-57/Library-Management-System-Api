@@ -251,7 +251,8 @@ ALTER PROCEDURE Sp_Transactions
 @BookId INT = NULL,
 @BarCode INT = NULL,
 @TransactionType VARCHAR(10) = NULL,
-@Date DATE = NULL
+@Date DATE = NULL,
+@Status Bit = null
 AS
 BEGIN
     BEGIN TRY
@@ -272,11 +273,14 @@ BEGIN
                 BEGIN
                     THROW 50000, 'The book copy is either not available or has been deleted.', 1;
                 END;
-
+				
                 -- Mark the book copy as not available
                 UPDATE BookCopies
                 SET IsAvailable = 0
                 WHERE BarCode = @BarCode;
+
+				set @status = 0;
+				
             END
             -- Handle Return Transaction
             ELSE IF @TransactionType = 'Return'
@@ -291,16 +295,29 @@ BEGIN
                     THROW 50001, 'The book copy cannot be returned because it is either already available or deleted.', 1;
 					return;
                 END;
+				if not exists(
+					select 1 from Transactions where StudentId = @StudentId and BarCode = @BarCode and status = 0
+				)
+				begin
+					 THROW 60000, 'The book is not borrowed by this user and cannot be returned.', 1;
+				return;
+				end
 
+				set @status = 1;
                 -- Mark the book copy as available
                 UPDATE BookCopies
                 SET IsAvailable = 1
                 WHERE BarCode = @BarCode;
+
+				--mark the status of borrow as 1
+				update Transactions set status = 1
+				where StudentId = @StudentId and BarCode = @BarCode
+				and status = 0;
             END;
 
             -- Insert the transaction record (TransactionID auto-incremented)
-            INSERT INTO Transactions (StudentId, UserId, BookId, BarCode, TransactionType, Date) 
-            VALUES (@StudentId, @UserId, @BookId, @BarCode, @TransactionType, @Date);
+            INSERT INTO Transactions (StudentId, UserId, BookId, BarCode, TransactionType, Date,Status) 
+            VALUES (@StudentId, @UserId, @BookId, @BarCode, @TransactionType, @Date,@Status);
 
             -- Return the inserted transaction
             SELECT * 

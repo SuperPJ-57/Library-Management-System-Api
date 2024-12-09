@@ -66,6 +66,7 @@ alter table transactions add constraint
 fk_Bid foreign key(BookId)
 references Books(BookId);
 
+alter table transactions add Status Bit;
 
 
 create table BookCopies(

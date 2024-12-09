@@ -11,7 +11,8 @@ namespace Lms.Domain.Interfaces
     {
         Task<UsersEntity?> AuthenticateAsync(string username);
         Task<IEnumerable<UsersEntity>> GetAllUsersAsync();
-        Task<UsersEntity> GetUserByIdAsync(int userId);
+        Task<UsersEntity> GetUserByUsernameAsync(string username);
+        Task<UsersEntity> GetUserByIdAsync(int id);
         Task AddUserAsync(UsersEntity user);
         Task UpdateUserAsync(UsersEntity user);
         Task DeleteUserAsync(int userId);

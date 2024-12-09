@@ -45,13 +45,28 @@ namespace Lms.Infrastructure.Repositories
             }
         }
 
-        public async Task<UsersEntity?> GetUserByIdAsync(int userId)
+        public async Task<UsersEntity?> GetUserByUsernameAsync(string username)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
-                parameters.Add("@UserID", userId);
+                parameters.Add("@Username", username);
+
+                return await connection.QueryFirstOrDefaultAsync<UsersEntity>(
+                    "SP_Users",
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<UsersEntity?> GetUserByIdAsync(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@flag", "SI");
+                parameters.Add("@UserID", id);
 
                 return await connection.QueryFirstOrDefaultAsync<UsersEntity>(
                     "SP_Users",

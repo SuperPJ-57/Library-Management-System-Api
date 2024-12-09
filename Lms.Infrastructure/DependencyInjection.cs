@@ -19,13 +19,15 @@ namespace Lms.Infrastructure
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IStudentService, StudentService>();
-            services.AddTransient<ITransactionService, TransactionService>();   
+            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IDashboardService, DashboardService>();
 
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<JwtTokenHelper>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped(typeof(IErrorHandlingService<>), typeof(ErrorHandlingService<>));

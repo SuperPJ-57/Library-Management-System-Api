@@ -9,17 +9,21 @@ namespace Lms.Infrastructure.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IStudentRepository _studentRepository;
-        public TransactionService(ITransactionRepository transactionRepository,IStudentRepository studentRepository)
+        private readonly IUserRepository _userRepository;
+        public TransactionService(ITransactionRepository transactionRepository,IStudentRepository studentRepository, IUserRepository userRepository)
         {
             _transactionRepository = transactionRepository;
             _studentRepository = studentRepository;
+            _userRepository = userRepository;
         }
         public async Task<TransactionsEntity> AddTransactionAsync(TransactionsEntity transaction)
         {
-            var result = await _studentRepository.GetStudentByIdAsync(transaction.StudentId);
-            if(result == null)
+            var student = await _studentRepository.GetStudentByIdAsync(transaction.StudentId);
+
+            var user = await _userRepository.GetUserByIdAsync(transaction.UserId);
+            if (student == null || user == null)
             {
-                throw new Exception("Student not found");
+                throw new Exception((student == null) ? "Student not found" : "User not found");
             }
             return await _transactionRepository.AddTransactionAsync(transaction);
         }

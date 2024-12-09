@@ -63,6 +63,7 @@ namespace Lms.Infrastructure.Repositories
                     "SP_Transactions",
                     parameters,
                     commandType: CommandType.StoredProcedure);
+                var x = result;
 
                 return result;
             }

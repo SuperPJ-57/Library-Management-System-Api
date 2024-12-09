@@ -34,11 +34,14 @@ namespace Lms.Infrastructure.Services
             return await _userRepository.GetAllUsersAsync();
         }
 
-        public async Task<UsersEntity> GetUserByIdAsync(int userId)
+        public async Task<UsersEntity> GetUserByUsernameAsync(string username)
         {
-            return await _userRepository.GetUserByIdAsync(userId);
+            return await _userRepository.GetUserByUsernameAsync(username);
         }
-
+        public async Task<UsersEntity> GetUserByIdAsync(int id)
+        {
+            return await _userRepository.GetUserByIdAsync(id);
+        }
         public async Task UpdateUserAsync(UsersEntity user)
         {
             await _userRepository.UpdateUserAsync(user);

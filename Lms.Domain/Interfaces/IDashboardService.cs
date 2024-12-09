@@ -1,14 +1,14 @@
 ﻿using Lms.Domain.Entitites;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lms.Application.Queries.Users
+namespace Lms.Domain.Interfaces
 {
-    public record GetUserByIdQuery(int Id) : IRequest<UsersEntity>
+    public interface IDashboardService
     {
+        Task<DashboardData> GetDashboardDataAsync();
     }
 }

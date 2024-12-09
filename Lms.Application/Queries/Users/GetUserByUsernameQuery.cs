@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Queries.Users
 {
-    public record GetUserByIdQuery(int Id) : IRequest<UsersEntity>
+    public record GetUserByUsernameQuery(string Username) : IRequest<UsersEntity>
     {
     }
 }

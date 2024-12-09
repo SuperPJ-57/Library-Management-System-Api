@@ -7,7 +7,10 @@ select *from Transactions;
 select *from Students;
 select *from BookCopies;
 
-update books set quantity = 1;
+update BookCopies set IsAvailable = 0 where IsDeleted = 1;
+update books set quantity = 2 where bookid = 2;
+delete from Transactions;
+update bookcopies set IsAvailable = 1;
 
 
 exec Sp_BookInstance @flag='I', @BookId = 1, @BarCode=62313435;
@@ -18,7 +21,7 @@ exec Sp_BookInstance @flag='I', @BookId = 4, @BarCode=72313435;
 
 drop table test;
 
-truncate table students;
+truncate table student;
 
 
 
@@ -37,4 +40,4 @@ WHERE
 
 	ALTER TABLE bookcopies DROP CONSTRAINT FK__BookCopie__BookI__6754599E;
 
-	delete from Transactions where TransactionId = 10
+	delete from Transactions

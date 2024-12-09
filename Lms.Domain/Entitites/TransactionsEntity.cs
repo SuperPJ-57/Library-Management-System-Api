@@ -18,5 +18,6 @@ namespace Lms.Domain.Entitites
         public int BarCode { get; set; }
         public string TransactionType { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+        public bool Status { get; set; }
     }
 }

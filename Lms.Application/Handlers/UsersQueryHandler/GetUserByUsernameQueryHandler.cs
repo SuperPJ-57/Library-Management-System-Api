@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.UsersQueryHandler
 {
-    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UsersEntity>
+    public class GetUserByUsernameQueryHandler : IRequestHandler<GetUserByUsernameQuery, UsersEntity>
     {
         private readonly IUserService _userService;
 
-        public GetUserByIdQueryHandler(IUserService userService)
+        public GetUserByUsernameQueryHandler(IUserService userService)
         {
             _userService = userService;
         }
-        public async Task<UsersEntity> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+        public async Task<UsersEntity> Handle(GetUserByUsernameQuery request, CancellationToken cancellationToken)
         {
-            return await _userService.GetUserByIdAsync(request.Id);
+            return await _userService.GetUserByUsernameAsync(request.Username);
         }
     }
 }

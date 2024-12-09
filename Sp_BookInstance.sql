@@ -16,10 +16,20 @@ BEGIN
             BEGIN
                 THROW 50000, 'The provided BookId does not exist in the Books table.', 1;
             END
-
-            -- Insert the BookCopy
-            INSERT INTO BookCopies (BarCode, BookId)
-            VALUES (@BarCode, @BookID);
+			if Exists (select 1 from BookCopies where barcode=@BarCode and IsDeleted = 1 and BookId = @BookID)
+			begin
+				update BookCopies set IsDeleted = 0 ,
+				IsAvailable = 1 where barcode = @barcode;
+				update books set quantity = quantity + 1 where
+				bookid = @BookID;
+			end
+			else
+			begin
+				-- Insert the BookCopy
+				INSERT INTO BookCopies (BarCode, BookId)
+				VALUES (@BarCode, @BookID);
+			end
+            
 
             COMMIT TRAN;
             RETURN;
@@ -130,3 +140,4 @@ BEGIN
     END CATCH
 END;
 GO
+
