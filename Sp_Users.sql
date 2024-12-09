@@ -42,22 +42,42 @@ begin
 
 		else if @flag = 'S'
 			begin
-				 IF @UserID IS NOT NULL
+				 IF @Username IS NOT NULL
 					BEGIN
-						SELECT * 
+						SELECT UserId,Username,Email,Role 
 						FROM Users 
-						WHERE UserID = @UserID;
+						WHERE Username = @Username;
 					END
 				ELSE
 					BEGIN
-						SELECT * 
-						FROM Users;
+						SELECT UserId,Username,Email,Role 
+						FROM Users ;
 					END
 
 				COMMIT TRAN;
 				RETURN;
 			end
 		
+
+		--select by id
+		else if @flag = 'SI'
+			begin
+				 IF @UserID IS NOT NULL
+					BEGIN
+						SELECT UserId,Username,Email,Role 
+						FROM Users 
+						WHERE UserId = @UserID;
+					END
+				ELSE
+					BEGIN
+						SELECT UserId,Username,Email,Role 
+						FROM Users ;
+					END
+
+				COMMIT TRAN;
+				RETURN;
+			end
+
 		else if @flag = 'A' --Authentication
 			begin
 				Select *from Users where Username = @Username;
@@ -96,3 +116,5 @@ go
 
 
 select *from books;
+
+exec sp_users @flag='SI', @userid=2;
