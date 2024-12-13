@@ -55,7 +55,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@AuthorId", book.AuthorId);
                 parameters.Add("@Genre", book.Genre);
                 parameters.Add("@ISBN", book.ISBN);
-                parameters.Add("@Quantity", book.Quantity);
+                //parameters.Add("@Quantity", book.Quantity);
                 var result = await connection.QueryFirstOrDefaultAsync<BooksEntity>(
                     "SP_Books",
                     parameters,

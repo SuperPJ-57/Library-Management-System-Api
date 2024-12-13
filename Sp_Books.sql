@@ -279,11 +279,11 @@ BEGIN
             --END;
 
             UPDATE Books 
-            SET Title = @Title, 
-                AuthorId = @AuthorId, 
-                Genre = @Genre, 
-                ISBN = @ISBN, 
-                Quantity = @Quantity
+            SET Title = Coalesce(@Title,Title), 
+                AuthorId = Coalesce(@AuthorId,AuthorId), 
+                Genre = Coalesce(@Genre,Genre), 
+                ISBN = Coalesce(@ISBN,ISBN)
+                
             WHERE BookId = @BookID;
 
             -- Return the updated book

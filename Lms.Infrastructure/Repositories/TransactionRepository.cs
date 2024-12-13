@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Lms.Application.DTOs;
 using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
 using Lms.Domain.Models;
@@ -16,21 +17,21 @@ namespace Lms.Infrastructure.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); ;
         }
-        public async Task<IEnumerable<TransactionsEntity>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
 
-                return await connection.QueryAsync<TransactionsEntity>(
+                return await connection.QueryAsync<TransactionDetailsDto>(
                    "SP_Transactions",
                    parameters,
                    commandType: CommandType.StoredProcedure);
             }
         }
 
-        public async Task<TransactionsEntity?> GetTransactionByIdAsync(int transactionId)
+        public async Task<TransactionDetailsDto?> GetTransactionByIdAsync(int transactionId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -38,7 +39,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@flag", "S");
                 parameters.Add("@TransactionID", transactionId);
 
-                return await connection.QueryFirstOrDefaultAsync<TransactionsEntity>(
+                return await connection.QueryFirstOrDefaultAsync<TransactionDetailsDto>(
                     "SP_Transactions",
                     parameters,
                     commandType: CommandType.StoredProcedure);
@@ -58,7 +59,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@BarCode", transaction.BarCode);
                 parameters.Add("@TransactionType", transaction.TransactionType);
                 parameters.Add("@Date", transaction.Date);
-
+                parameters.Add("@DueDate", transaction.DueDate);
                 var result = await connection.QueryFirstOrDefaultAsync<TransactionsEntity>(
                     "SP_Transactions",
                     parameters,

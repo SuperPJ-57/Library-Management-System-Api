@@ -21,10 +21,16 @@ begin try
 				Declare @email varchar(255);
 				Declare @role varchar(11);
 
-				select @tbb = count(*)   from transactions where status =0;
+
+				update Transactions set status = 'Overdue' 
+				where
+				status = 'Active' and DueDate<GETDATE();
+
+
+				select @tbb = count(*)   from transactions where status in ('Active','Overdue');
 
 				select @trb = count(*) from transactions where 
-				status = 1;
+				status = 'Completed';
 
 				select @tub =  count(*) from students 
 				select @tub = @tub + count(*) from users;

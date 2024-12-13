@@ -8,7 +8,7 @@ namespace Lms.Application.DTOs
 {
     public record UpdateAuthorDto
     {
-        public string Name { get; set; } = null;
-        public string Bio { get; set; } = null;
+        public string? Name { get; set; } = null;
+        public string? Bio { get; set; } = null;
     }
 }

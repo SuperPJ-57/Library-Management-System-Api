@@ -126,10 +126,10 @@ BEGIN
         ELSE IF @flag = 'U'
         BEGIN
             UPDATE Students 
-            SET Name = @Name, 
-                Email = @Email, 
-                ContactNumber = @ContactNumber, 
-                Department = @Department
+            SET Name = Coalesce(@Name,Name), 
+                Email = Coalesce(@Email,Email), 
+                ContactNumber = Coalesce(@ContactNumber,ContactNumber), 
+                Department = Coalesce(@Department,Department)
             WHERE StudentID = @StudentID;
 
             -- Return the updated student

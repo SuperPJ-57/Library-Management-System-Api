@@ -1,4 +1,5 @@
-﻿using Lms.Domain.Entitites;
+﻿using Lms.Application.DTOs;
+using Lms.Domain.Entitites;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Queries.Transactions
 {
-    public record GetAllTransactionsQuery: IRequest<IEnumerable<TransactionsEntity>>
+    public record GetAllTransactionsQuery: IRequest<IEnumerable<TransactionDetailsDto>>
     {
     }
 }

@@ -120,7 +120,7 @@ BEGIN
         ELSE IF @flag = 'U'
         BEGIN
             UPDATE Authors 
-            SET Name = @Name, Bio = @Bio
+            SET Name = Coalesce(@Name,Name), Bio = Coalesce(@Bio,Bio)
             WHERE AuthorId = @AuthorID;
 
             -- Return the updated row
@@ -163,12 +163,12 @@ BEGIN
             BEGIN
                 SELECT * 
                 FROM Authors 
-                WHERE AuthorID = @AuthorID;
+                WHERE AuthorID = @AuthorID and IsDeleted = 0;
             END
             ELSE
             BEGIN
                 SELECT * 
-                FROM Authors;
+                FROM Authors where IsDeleted = 0;
             END
 
             COMMIT TRAN;

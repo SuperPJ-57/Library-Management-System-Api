@@ -1,12 +1,14 @@
-create proc Sp_OverdueBorrowers
+alter proc Sp_OverdueBorrowers
 as 
 begin
 begin try
 	begin tran;
-		
+		update Transactions set status = 'Overdue' 
+		where
+		status = 'Active' and DueDate<GETDATE();
 
 		SELECT  S.Name as BorrowerName, S.Email as BorrowerEmail, T.Date as BorrowedDate, B.Title as BookTitle FROM Students S inner join Transactions T on S.StudentId = T.StudentId inner join Books B on T.BookId = B.BookId
-where T.status = 0 and DATEADD(week, 2, Date) < GETDATE();
+where T.status = 'Overdue';
 
 
 

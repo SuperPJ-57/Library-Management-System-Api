@@ -1,4 +1,5 @@
-﻿using Lms.Application.Interfaces;
+﻿using Lms.Application.DTOs;
+using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
 using Lms.Domain.Models;
@@ -33,12 +34,12 @@ namespace Lms.Infrastructure.Services
             return await _transactionRepository.DeleteTransactionAsync(transactionId);
         }
 
-        public async Task<IEnumerable<TransactionsEntity>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync()
         {
             return await _transactionRepository.GetAllTransactionsAsync();
         }
 
-        public async Task<TransactionsEntity> GetTransactionByIdAsync(int transactionId)
+        public async Task<TransactionDetailsDto> GetTransactionByIdAsync(int transactionId)
         {
             return await _transactionRepository.GetTransactionByIdAsync(transactionId);
         }

@@ -9,7 +9,7 @@ namespace Lms.Domain.Entitites
     public class AuthorsEntity
     {
         public int AuthorId { get; set; }
-        public string Name { get; set;}
+        public string Name { get; set; } = null;
         public string Bio { get; set; } = null;
     }
 }

@@ -94,18 +94,22 @@ BEGIN
         -- Select Operation
         ELSE IF @flag = 'S'
         BEGIN
-            IF @BarCode IS NOT NULL
-            BEGIN
-                SELECT BarCode,BookId
-				FROM BookCopies 
-                WHERE BarCode = @BarCode and IsDeleted = 0;
-            END
-            ELSE
-            BEGIN
-                SELECT BarCode,BookId
-				FROM BookCopies 
-                WHERE  IsDeleted = 0;
-            END
+			With BookCopiesDetail as
+			(
+				select Title,BC.BookId as BookId,BC.BarCode as BarCode from
+				Books B join BookCopies BC
+				on B.BookId = BC.BookId where IsDeleted = 0
+				
+			)
+			SELECT Title,BookId,BarCode
+			FROM BookCopiesDetail 
+            WHERE @BarCode is Null or BarCode= @BarCode
+			order by BookId;
+            
+            
+
+			
+			
 
             COMMIT TRAN;
             RETURN;

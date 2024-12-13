@@ -1,4 +1,5 @@
-﻿using Lms.Application.Queries.Transactions;
+﻿using Lms.Application.DTOs;
+using Lms.Application.Queries.Transactions;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.TransactionsQueryHandler
 {
-    public class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionByIdQuery, TransactionsEntity>
+    public class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionByIdQuery, TransactionDetailsDto>
     {
         private readonly ITransactionService _transactionService;
 
@@ -18,7 +19,7 @@ namespace Lms.Application.Handlers.TransactionsQueryHandler
         {
             _transactionService = transactionService;
         }
-        public async Task<TransactionsEntity> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TransactionDetailsDto> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
         {
             return await _transactionService.GetTransactionByIdAsync(request.TransactionId);
         }

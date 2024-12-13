@@ -48,6 +48,10 @@ TransactionType varchar(10) not null check(TransactionType in ('Borrow','Return'
 Date DATE not null,
 Barcode int 
 );
+
+alter table transactions add DueDate DATE ;
+alter table transactions alter column DueDate Date not null;
+
 alter table transactions add constraint
 fk_barcode foreign key(BarCode)
 references BookCopies(BarCode);
@@ -67,8 +71,17 @@ fk_Bid foreign key(BookId)
 references Books(BookId);
 
 alter table transactions add Status Bit;
+alter table transactions alter column status varchar(10);
+
+alter table transactions add constraint chk_status 
+check (Status in ('Active','Completed','Overdue'));
 
 
+
+
+
+
+----------------------------------------------------
 create table BookCopies(
 	BarCode int primary key  not null,
 	BookId int foreign key references Books(BookId),

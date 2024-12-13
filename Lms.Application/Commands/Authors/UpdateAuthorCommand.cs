@@ -11,8 +11,8 @@ namespace Lms.Application.Commands.Authors
     public record UpdateAuthorCommand:IRequest<AuthorsEntity>
     {
         public int AuthorId { get; set; }
-        public string Name { get; set; } = null;
-        public string Bio { get; set; } = null;
+        public string Name { get; set; } 
+        public string Bio { get; set; } 
         //public UpdateAuthorCommand(int aid, string name, string bio)
         //{
         //    AuthorId = aid;

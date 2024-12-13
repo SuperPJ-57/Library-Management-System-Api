@@ -22,7 +22,8 @@ namespace Lms.Application.Handlers.TransactionsCommandHandler
                 BookId = request.BookId,
                 BarCode = request.BarCode,
                 TransactionType = request.TransactionType,
-                Date = request.Date
+                Date = request.Date,
+                DueDate = request.Date.AddDays(14)
             };
             return await _transactionService.AddTransactionAsync(transaction);
             
