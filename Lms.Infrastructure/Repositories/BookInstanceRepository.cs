@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Lms.Application.DTOs;
 using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
 using Lms.Domain.Models;
@@ -8,80 +9,56 @@ using System.Data;
 
 namespace Lms.Infrastructure.Repositories
 {
-    public class BookRepository: IBookRepository
+    public class BookInstanceRepository:IBookInstanceRepository
     {
         private readonly string _connectionString;
 
-        public BookRepository(IConfiguration configuration)
+        public BookInstanceRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); ;
         }
-        public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync()
+        public async Task<IEnumerable<GetBookInstancesDto>> GetAllBookInstancesAsync()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
 
-                return await connection.QueryAsync<BooksEntity>(
-                   "SP_Books",
+                var result = await connection.QueryAsync<GetBookInstancesDto>(
+                   "SP_BookInstance",
                    parameters,
                    commandType: CommandType.StoredProcedure);
+                return result;
             }
         }
 
-        public async Task<BooksEntity?> GetBookByIdAsync(int bookId)
+        public async Task<GetBookInstancesDto> GetBookInstanceByBarcodeAsync(int barcode)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
-                parameters.Add("@BookID", bookId);
+                parameters.Add("@BarCode", barcode);
 
-                return await connection.QueryFirstOrDefaultAsync<BooksEntity>(
-                    "SP_Books",
+                return await connection.QueryFirstOrDefaultAsync<GetBookInstancesDto>(
+                    "SP_BookInstance",
                     parameters,
                     commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        public async Task<BooksEntity?> AddBookAsync(BooksEntity book)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var parameters = new DynamicParameters();
-                parameters.Add("@flag", "I");
-                parameters.Add("@Title", book.Title);
-                parameters.Add("@AuthorId", book.AuthorId);
-                parameters.Add("@Genre", book.Genre);
-                parameters.Add("@ISBN", book.ISBN);
-                //parameters.Add("@Quantity", book.Quantity);
-                var result = await connection.QueryFirstOrDefaultAsync<BooksEntity>(
-                    "SP_Books",
-                    parameters,
-                    commandType: CommandType.StoredProcedure);
-
-                return result;
             }
         }
 
         
 
-        public async Task<BooksEntity?> UpdateBookAsync(BooksEntity book)
+        public async Task<BookCopies> AddBookInstanceAsync(BookCopies bCopy)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@flag", "U");
-                parameters.Add("@BookID", book.BookId);
-                parameters.Add("@Title", book.Title);
-                parameters.Add("@AuthorId", book.AuthorId);
-                parameters.Add("@Genre", book.Genre);
-                parameters.Add("@ISBN", book.ISBN);
-                parameters.Add("@Quantity", book.Quantity);
-
-                var result = await connection.QueryFirstOrDefaultAsync<BooksEntity>(
-                    "SP_Books",
+                parameters.Add("@flag", "I");
+                parameters.Add("@BookId", bCopy.BookId);
+                parameters.Add("@BarCode", bCopy.BarCode);
+                var result = await connection.QueryFirstOrDefaultAsync<BookCopies>(
+                    "Sp_BookInstance",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
@@ -89,16 +66,34 @@ namespace Lms.Infrastructure.Repositories
             }
         }
 
-        public async Task<DeleteOperationResult?> DeleteBookAsync(int bookId)
+        public async Task<BookCopies> UpdateBookInstanceAsync(BookCopies bCopy)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@flag", "U");
+                parameters.Add("@BookId", bCopy.BookId);
+                parameters.Add("@BarCode", bCopy.BarCode);
+                parameters.Add("@IsAvailable", bCopy.IsAvailable);
+                var result = await connection.QueryFirstOrDefaultAsync<BookCopies>(
+                    "SP_BookInstance",
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
+
+        public async Task<DeleteOperationResult> DeleteBookInstanceAsync(int barcode)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "D");
-                parameters.Add("@BookID", bookId);
+                parameters.Add("@BarCode", barcode);
 
                 var result = await connection.QueryFirstOrDefaultAsync<DeleteOperationResult>(
-                    "SP_Books",
+                    "SP_BookInstance",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 

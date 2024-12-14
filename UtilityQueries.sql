@@ -1,10 +1,13 @@
-
+use LMS;
 select *from users;
 select *from authors;
-select *from books;
+
 select *from Transactions;
 select *from Students;
 select *from BookCopies;
+select *from books;
+
+--exec Sp_BookInstance @flag='D',@barcode=1111111;
 
 --exec Sp_Transactions @flag='S', @TransactionId=19;
 

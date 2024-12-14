@@ -1,16 +1,16 @@
-﻿using Lms.Domain.Entitites;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lms.Application.Commands.Books
+namespace Lms.Application.DTOs
 {
-    public record CreateBookInstanceCommand: IRequest<BookCopies>
+    public record GetBookInstancesDto
     {
         public int BookId { get; set; }
+        public string Title { get; set; }
         public int BarCode { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

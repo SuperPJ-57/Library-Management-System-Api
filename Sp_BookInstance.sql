@@ -96,12 +96,12 @@ BEGIN
         BEGIN
 			With BookCopiesDetail as
 			(
-				select Title,BC.BookId as BookId,BC.BarCode as BarCode from
+				select Title,BC.BookId as BookId,BC.BarCode as BarCode, BC.IsAvailable as IsAvailable from
 				Books B join BookCopies BC
 				on B.BookId = BC.BookId where IsDeleted = 0
 				
 			)
-			SELECT Title,BookId,BarCode
+			SELECT Title,BookId,BarCode,IsAvailable
 			FROM BookCopiesDetail 
             WHERE @BarCode is Null or BarCode= @BarCode
 			order by BookId;
@@ -145,3 +145,4 @@ BEGIN
 END;
 GO
 
+--exec Sp_BookInstance @flag='S';

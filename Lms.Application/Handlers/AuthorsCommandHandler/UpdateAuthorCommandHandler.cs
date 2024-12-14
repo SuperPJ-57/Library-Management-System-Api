@@ -1,21 +1,16 @@
 ﻿using Lms.Application.Commands.Authors;
-using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
+using Lms.Domain.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lms.Application.Handlers.AuthorsCommandHandler
 {
     public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, AuthorsEntity>
     {
-        private readonly IAuthorRepository _authorRepository;
-        public UpdateAuthorCommandHandler(IAuthorRepository authorRepository)
+        private readonly IAuthorService _authorService;
+        public UpdateAuthorCommandHandler(IAuthorService authorService)
         {
-            _authorRepository = authorRepository;
+            _authorService = authorService;
         }
         public async Task<AuthorsEntity> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
@@ -25,7 +20,7 @@ namespace Lms.Application.Handlers.AuthorsCommandHandler
                 Name = request.Name,
                 Bio = request.Bio
             };
-            return await _authorRepository.UpdateAuthorAsync(author);
+            return await _authorService.UpdateAuthorAsync(author);
             
         }
     }

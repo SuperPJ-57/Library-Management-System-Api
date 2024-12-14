@@ -8,7 +8,6 @@ namespace Lms.Application.Interfaces
         Task<IEnumerable<BooksEntity>> GetAllBooksAsync();
         Task<BooksEntity?> GetBookByIdAsync(int bookId);
         Task<BooksEntity?> AddBookAsync(BooksEntity book);
-        Task<BookCopies?> AddBookInstanceAsync(BookCopies bCopy);
         Task<BooksEntity?> UpdateBookAsync(BooksEntity book);
         Task<DeleteOperationResult?> DeleteBookAsync(int bookId);
 

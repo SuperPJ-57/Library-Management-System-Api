@@ -18,6 +18,7 @@ namespace Lms.Infrastructure
         {
             
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IBookInstanceService, BookInstanceService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IStudentService, StudentService>();
@@ -27,6 +28,7 @@ namespace Lms.Infrastructure
 
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddTransient<IBookInstanceRepository, BookInstanceRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();

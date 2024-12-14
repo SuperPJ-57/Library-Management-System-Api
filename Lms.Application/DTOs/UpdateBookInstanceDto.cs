@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lms.Domain.Entitites
+namespace Lms.Application.DTOs
 {
-    public class BookCopies
+    public class UpdateBookInstanceDto
     {
-        public int BarCode { get; set; }
         public int BookId { get; set; }
         public bool IsAvailable { get; set; }
     }

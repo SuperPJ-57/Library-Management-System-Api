@@ -16,11 +16,7 @@ namespace Lms.Infrastructure.Services
         {
             return await _bookRepository.AddBookAsync(book);
         }
-        public async Task<BookCopies> AddBookInstanceAsync(BookCopies bCopy)
-        {
-            return await _bookRepository.AddBookInstanceAsync(bCopy);
-        }
-
+        
         public async Task<DeleteOperationResult> DeleteBookAsync(int bookId)
         {
             return await _bookRepository.DeleteBookAsync(bookId);
