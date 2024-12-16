@@ -7,11 +7,10 @@ begin try
 	begin tran;
 		if @flag = 'S'
 			begin
-				--public int TotalBorrowedBooks { get; set; }
-				--public int TotalReturnedBooks { get; set; }
-				--public int TotalUserBase { get; set; }
-				--public int TotalBooks { get; set; }
-				--public int AvailableBooks { get; set; }
+
+			
+			
+			
 				Declare @tbb int;
 				Declare @trb int;
 				Declare @tub int;
@@ -20,7 +19,7 @@ begin try
 				Declare @userid int;
 				Declare @email varchar(255);
 				Declare @role varchar(11);
-
+				Declare @tdc int;
 
 				update Transactions set status = 'Overdue' 
 				where
@@ -48,6 +47,8 @@ begin try
 
 				select @role = Role from Users where Username= @Username;
 
+				select @tdc = count(distinct department) from students;
+
 				select @tbb as TotalBorrowedBooks,
 				@trb as TotalReturnedBooks,
 				@tub as TotalUserBase,
@@ -55,10 +56,11 @@ begin try
 				@ab as AvailableBooks,
 				@userid as UserId,
 				@email as Email,
-				@role as Role;
+				@role as Role,
+				@tdc as TotalFaculty;
 				
 				
-
+				
 			end
 	commit tran;
 	return

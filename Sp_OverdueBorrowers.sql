@@ -3,11 +3,21 @@ as
 begin
 begin try
 	begin tran;
-		update Transactions set status = 'Overdue' 
-		where
-		status = 'Active' and DueDate<GETDATE();
+		--set login flag = true;
+			declare @today DATE = Getdate();
+			if not exists (select 1 as date where @today in (select date from 
+			dailyfirstlogin))
+			begin
+				insert into dailyfirstlogin
+				values(GETDATE(),1);
 
-		SELECT  S.Name as BorrowerName, S.Email as BorrowerEmail, T.Date as BorrowedDate, B.Title as BookTitle FROM Students S inner join Transactions T on S.StudentId = T.StudentId inner join Books B on T.BookId = B.BookId
+				update Transactions set status = 'Overdue' 
+				where
+				status = 'Active' and DueDate<GETDATE();
+			end
+		
+		
+		SELECT  Top 5 S.Name as BorrowerName,S.StudentId as BorrowerId,T.TransactionId as BorrowId, S.Email as BorrowerEmail, T.DueDate as DueDate, B.Title as BookTitle FROM Students S inner join Transactions T on S.StudentId = T.StudentId inner join Books B on T.BookId = B.BookId
 where T.status = 'Overdue';
 
 
@@ -35,3 +45,4 @@ end catch
 end
 go
 
+exec sp_overdueborrowers;

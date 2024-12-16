@@ -6,7 +6,7 @@ namespace Lms.Application.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync();
+        Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync(string query);
         Task<TransactionDetailsDto?> GetTransactionByIdAsync(int transactionId);
         Task<TransactionsEntity?> AddTransactionAsync(TransactionsEntity transaction);
         Task<TransactionsEntity?> UpdateTransactionAsync(TransactionsEntity transaction);

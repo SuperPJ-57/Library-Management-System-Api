@@ -21,11 +21,11 @@ namespace LMS.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details([FromQuery]string? query=null)
         {
             try
             {
-                var transaction = await _mediator.Send(new GetAllTransactionsQuery(), CancellationToken.None);
+                var transaction = await _mediator.Send(new GetAllTransactionsQuery(query), CancellationToken.None);
                 if (transaction == null)
                 {
                     return NotFound();
@@ -70,7 +70,7 @@ namespace LMS.Api.Controllers
         {
             try
             {
-                var createdTransaction = await _mediator.Send(command);
+                var createdTransaction = await _mediator.Send(command,CancellationToken.None);
                 return Ok(createdTransaction);
 
             }

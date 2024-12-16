@@ -5,6 +5,9 @@ create TABLE Users (
     Email VARCHAR(255) NOT NULL UNIQUE,
     Role nvarchar(10) NOT NULL CHECK (Role IN ('Admin'))
 );
+create nonclustered index idx_users on users(username,email);
+
+
 
 --drop table students;
 create table Students (
@@ -15,6 +18,7 @@ ContactNumber varchar(15),
 Department varchar(100)
 
 );
+create nonclustered index idx_students on students(Name,email,contactnumber);
 alter table students add  IsDeleted bit default 0;
 
 create table Authors(
@@ -33,6 +37,8 @@ Genre varchar(100),
 ISBN varchar(13) not null,
 Quantity int default 1
 );
+create nonclustered index idx_books on books(title);
+
 alter table books add constraint uniq_isbn unique (isbn);
 alter table Books add constraint fk_aid
 foreign key(AuthorId) references Authors(AuthorId);
@@ -45,6 +51,8 @@ StudentId int foreign key references Students(StudentId),
 UserId int Foreign key references Users(UserID),
 BookId int Foreign key references Books(BookId),
 TransactionType varchar(10) not null check(TransactionType in ('Borrow','Return')),
+create nonclustered index idx_transactions on transactions(TransactionType,StudentId,status);
+
 Date DATE not null,
 Barcode int 
 );
@@ -88,5 +96,13 @@ create table BookCopies(
 	IsAvailable BIT default 1
 
 );
-
+create nonclustered index idx_bookcopies on bookcopies(bookid);
 alter table BookCopies add IsDeleted BIT default 0;
+
+
+
+create table DailyFirstLogin(
+Date Date primary key,
+flag bit default 0
+
+);

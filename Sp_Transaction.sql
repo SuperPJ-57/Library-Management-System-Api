@@ -8,7 +8,9 @@ ALTER PROCEDURE Sp_Transactions
 @TransactionType VARCHAR(10) = NULL,
 @Date DATE = NULL,
 @Status Varchar(12) = null,
-@DueDate DATE = NULL
+@DueDate DATE = NULL,
+@query nvarchar(max) = null,
+@typefilter varchar(15) = null
 AS
 BEGIN
     BEGIN TRY
@@ -36,6 +38,7 @@ BEGIN
                 WHERE BarCode = @BarCode;
 
 				set @status = 'Active';
+				set @DueDate = DATEADD(day,14,@Date);
 				
             END
             -- Handle Return Transaction
@@ -65,10 +68,16 @@ BEGIN
                 SET IsAvailable = 1
                 WHERE BarCode = @BarCode;
 
+
+				set @DueDate = (select Date from Transactions where status in ('Overdue','Active') and BarCode=@BarCode and StudentId = @StudentId);
+
 				--mark the status of borrow as 1
 				update Transactions set status = 'Completed'
 				where StudentId = @StudentId and BarCode = @BarCode
-				and status = 0;
+				and status in ('Active','Overdue');
+
+				
+
             END;
 
             -- Insert the transaction record (TransactionID auto-incremented)
@@ -76,7 +85,7 @@ BEGIN
             VALUES (@StudentId, @UserId, @BookId, @BarCode, @TransactionType, @Date,@Status,@DueDate);
 
             -- Return the inserted transaction
-            SELECT * 
+            SELECT StudentId,UserId,BookId,BarCode,TransactionType,Date,Status,TransactionId 
             FROM Transactions 
             WHERE TransactionId = SCOPE_IDENTITY();
 
@@ -139,6 +148,7 @@ BEGIN
 				T.StudentId,
 				S.Name,
 				T.BookId,
+				T.BarCode,
 				B.Title,
 				T.TransactionType,
 				T.Date,
@@ -150,8 +160,14 @@ BEGIN
 				Students S ON T.StudentID = S.StudentID
 				JOIN 
 				Books B ON T.BookID = B.BookID
+				where  @query is null or 
+				cast(T.TransactionId as nvarchar) like
+				'%'+@query+'%' or 
+				cast(T.BookId as nvarchar) like 
+				'%'+@query+'%' or
+				B.Title like '%'+@query+'%' or
+				T.StudentId like '%'+@query+'%'
 				)
-
 
 				SELECT * 
 				FROM TransactionDetails

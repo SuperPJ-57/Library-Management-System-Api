@@ -6,6 +6,18 @@ select *from Transactions;
 select *from Students;
 select *from BookCopies;
 select *from books;
+select *from dailyfirstlogin;
+
+
+--exec sp_transactions @flag='S', @query='Re';
+--exec Sp_Transactions @flag='I',@StudentId=4,@BookId=2,@BarCode=1234567,@UserId=1,
+--@TransactionType='Return',@Date='2024-12-15';
+
+--declare @DueDate  Date;
+--set @DueDate = (select Date from Transactions where status in ('Overdue','Active') and BarCode=1234567 and StudentId = 4);
+
+
+--				select @DueDate;
 
 --exec Sp_BookInstance @flag='D',@barcode=1111111;
 

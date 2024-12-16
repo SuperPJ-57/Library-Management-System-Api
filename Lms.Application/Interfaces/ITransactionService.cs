@@ -11,7 +11,7 @@ namespace Lms.Domain.Interfaces
 {
     public interface ITransactionService
     {
-        Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync();
+        Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync(string query);
         Task<TransactionDetailsDto> GetTransactionByIdAsync(int transactionId);
         Task<TransactionsEntity> AddTransactionAsync(TransactionsEntity transaction);
         Task<TransactionsEntity> UpdateTransactionAsync(TransactionsEntity transaction);

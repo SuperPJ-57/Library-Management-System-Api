@@ -1,6 +1,7 @@
 ﻿using Lms.Application.Interfaces;
 using Lms.Domain.Entitites;
 using Lms.Domain.Interfaces;
+using Lms.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,10 @@ namespace Lms.Infrastructure.Services
         public async Task<DashboardData> GetDashboardDataAsync(string username)
         {
             return await _dashboardRepository.GetDashboardDataAsync(username);
+        }
+        public async Task<IEnumerable<OverDueBorrowers>?> GetOverdueBorrowersAsync()
+        {
+            return await _dashboardRepository.GetOverdueBorrowersAsync();
         }
         
     }

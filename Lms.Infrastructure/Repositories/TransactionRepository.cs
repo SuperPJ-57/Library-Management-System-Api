@@ -17,12 +17,13 @@ namespace Lms.Infrastructure.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); ;
         }
-        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync(string query)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
+                parameters.Add("@query", query);
 
                 return await connection.QueryAsync<TransactionDetailsDto>(
                    "SP_Transactions",
@@ -59,7 +60,7 @@ namespace Lms.Infrastructure.Repositories
                 parameters.Add("@BarCode", transaction.BarCode);
                 parameters.Add("@TransactionType", transaction.TransactionType);
                 parameters.Add("@Date", transaction.Date);
-                parameters.Add("@DueDate", transaction.DueDate);
+                //parameters.Add("@DueDate", transaction.DueDate);
                 var result = await connection.QueryFirstOrDefaultAsync<TransactionsEntity>(
                     "SP_Transactions",
                     parameters,

@@ -21,7 +21,7 @@ namespace Lms.Application.Handlers.TransactionsQueryHandler
 
         public async Task<IEnumerable<TransactionDetailsDto>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
         {
-            return await _transactionService.GetAllTransactionsAsync();
+            return await _transactionService.GetAllTransactionsAsync(request.query);
         }
     }
 }

@@ -34,9 +34,9 @@ namespace Lms.Infrastructure.Services
             return await _transactionRepository.DeleteTransactionAsync(transactionId);
         }
 
-        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<TransactionDetailsDto>> GetAllTransactionsAsync(string query)
         {
-            return await _transactionRepository.GetAllTransactionsAsync();
+            return await _transactionRepository.GetAllTransactionsAsync(query);
         }
 
         public async Task<TransactionDetailsDto> GetTransactionByIdAsync(int transactionId)

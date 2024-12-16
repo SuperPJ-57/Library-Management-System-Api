@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Queries.Transactions
 {
-    public record GetAllTransactionsQuery: IRequest<IEnumerable<TransactionDetailsDto>>
+    public record GetAllTransactionsQuery(string? query): IRequest<IEnumerable<TransactionDetailsDto>>
     {
     }
 }

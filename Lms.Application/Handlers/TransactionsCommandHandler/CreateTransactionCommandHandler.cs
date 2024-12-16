@@ -23,7 +23,7 @@ namespace Lms.Application.Handlers.TransactionsCommandHandler
                 BarCode = request.BarCode,
                 TransactionType = request.TransactionType,
                 Date = request.Date,
-                DueDate = request.Date.AddDays(14)
+                //DueDate = request.Date.AddDays(14)
             };
             return await _transactionService.AddTransactionAsync(transaction);
             

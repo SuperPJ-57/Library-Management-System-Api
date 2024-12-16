@@ -1,4 +1,5 @@
-﻿using Lms.Application.Queries.Books;
+﻿using Lms.Application.Interfaces;
+using Lms.Application.Queries.Books;
 using Lms.Application.Queries.Dashboard;
 using Lms.Domain.Interfaces;
 using MediatR;
@@ -13,10 +14,12 @@ namespace LMS.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IErrorHandlingService<string> _errorHandlingService;
-        public DashboardController(IMediator mediator, IErrorHandlingService<string> errorHandlingService)
+        private readonly INotificationService _notificationService;
+        public DashboardController(IMediator mediator, IErrorHandlingService<string> errorHandlingService,INotificationService notificationService)
         {
             _mediator = mediator;
             _errorHandlingService = errorHandlingService;
+            _notificationService = notificationService;
         }
 
         [HttpGet("{username}")]
@@ -30,6 +33,27 @@ namespace LMS.Api.Controllers
                     return NotFound();
                 }
                 return Ok(dashboardData);
+
+            }
+            catch
+            {
+                var errorMessage = _errorHandlingService.GetError();
+                return StatusCode(500, errorMessage);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOverDueBorrowers()
+        {
+            try
+            {
+                var overdueBorrowers = await _mediator.Send(new GetOverdueBorrowersQuery(), CancellationToken.None);
+                _notificationService.SendNotificationsToOverdueBorrowers();
+                if (overdueBorrowers == null)
+                {
+                    return NotFound();
+                }
+                return Ok(overdueBorrowers);
 
             }
             catch
