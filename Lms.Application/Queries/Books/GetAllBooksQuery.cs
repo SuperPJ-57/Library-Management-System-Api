@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lms.Application.Queries.Books
 {
-    public record GetAllBooksQuery: IRequest<IEnumerable<BooksEntity>>
+    public record GetAllBooksQuery(string? query): IRequest<IEnumerable<BooksEntity>>
     {
     }
 }

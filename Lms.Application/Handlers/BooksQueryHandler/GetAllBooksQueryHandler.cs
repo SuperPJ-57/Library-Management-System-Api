@@ -20,7 +20,7 @@ namespace Lms.Application.Handlers.BooksQueryHandler
 
         public async Task<IEnumerable<BooksEntity>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _bookService.GetAllBooksAsync();
+            return await _bookService.GetAllBooksAsync(request.query);
         }
     }
 }

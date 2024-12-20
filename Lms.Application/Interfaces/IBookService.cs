@@ -10,7 +10,7 @@ namespace Lms.Domain.Interfaces
 {
     public interface IBookService
     {
-        Task<IEnumerable<BooksEntity>> GetAllBooksAsync();
+        Task<IEnumerable<BooksEntity>> GetAllBooksAsync(string query);
         Task<BooksEntity> GetBookByIdAsync(int bookId);
         Task<BooksEntity> AddBookAsync(BooksEntity book);
         

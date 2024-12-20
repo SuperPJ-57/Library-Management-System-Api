@@ -16,7 +16,7 @@ namespace Lms.Application.Handlers.AuthorsQueryHandler
 
         public async Task<IEnumerable<AuthorsEntity>> Handle(GetAllAuthorsQuery request, CancellationToken cancellationToken)
         {
-            return await _authorService.GetAllAuthorsAsync();
+            return await _authorService.GetAllAuthorsAsync(request.query);
         }
     }
 }

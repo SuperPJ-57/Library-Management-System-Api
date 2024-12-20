@@ -22,9 +22,9 @@ namespace Lms.Infrastructure.Services
             return await _authorRepository.DeleteAuthorAsync(authorId);
         }
 
-        public async Task<IEnumerable<AuthorsEntity>> GetAllAuthorsAsync()
+        public async Task<IEnumerable<AuthorsEntity>> GetAllAuthorsAsync(string query)
         {
-            return await _authorRepository.GetAllAuthorsAsync();
+            return await _authorRepository.GetAllAuthorsAsync(query);
         }
 
         public async Task<AuthorsEntity> GetAuthorByIdAsync(int authorId)

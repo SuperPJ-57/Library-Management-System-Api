@@ -4,7 +4,7 @@ using Lms.Application.Queries.Authors;
 using Lms.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Web;
 namespace LMS.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -21,11 +21,11 @@ namespace LMS.Api.Controllers
 
         //get all authors
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details([FromQuery]string? query=null)
         {
             try
             {
-                var authors = await _mediator.Send(new GetAllAuthorsQuery(), CancellationToken.None);
+                var authors = await _mediator.Send(new GetAllAuthorsQuery(HttpUtility.UrlDecode(query)), CancellationToken.None);
                 if(authors == null)
                 {
                     return NotFound(); 

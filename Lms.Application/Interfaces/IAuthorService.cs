@@ -6,7 +6,7 @@ namespace Lms.Domain.Interfaces
 {
     public interface IAuthorService
     {
-        Task<IEnumerable<AuthorsEntity>> GetAllAuthorsAsync();
+        Task<IEnumerable<AuthorsEntity>> GetAllAuthorsAsync(string query);
         Task<AuthorsEntity> GetAuthorByIdAsync(int authorId);
         Task<AuthorsEntity> AddAuthorAsync(AuthorsEntity author);
         Task<AuthorsEntity> UpdateAuthorAsync(AuthorsEntity author);

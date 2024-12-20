@@ -8,6 +8,7 @@ select *from BookCopies;
 select *from books;
 select *from dailyfirstlogin;
 
+exec Sp_Books @flag='S',@Query=null,@bookid = 2;
 
 --exec sp_transactions @flag='S', @query='Re';
 --exec Sp_Transactions @flag='I',@StudentId=4,@BookId=2,@BarCode=1234567,@UserId=1,

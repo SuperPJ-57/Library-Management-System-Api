@@ -82,7 +82,8 @@ ALTER PROCEDURE Sp_Authors
 @flag CHAR(2),
 @AuthorID INT = null,
 @Name VARCHAR(255) = null,
-@Bio TEXT = null
+@Bio TEXT = null,
+@Query varchar(255)= null
 AS
 BEGIN
     BEGIN TRY
@@ -159,17 +160,10 @@ BEGIN
         -- Select Operation
         ELSE IF @flag = 'S'
         BEGIN
-            IF @AuthorID IS NOT NULL
-            BEGIN
-                SELECT * 
-                FROM Authors 
-                WHERE AuthorID = @AuthorID and IsDeleted = 0;
-            END
-            ELSE
-            BEGIN
-                SELECT * 
-                FROM Authors where IsDeleted = 0;
-            END
+			SELECT * 
+            FROM Authors 
+            WHERE (@AuthorID is null or AuthorId = @AuthorID) and IsDeleted = 0 and (@Query is null or Name like '%'+@Query+'%');
+           
 
             COMMIT TRAN;
             RETURN;

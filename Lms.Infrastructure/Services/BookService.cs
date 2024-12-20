@@ -22,9 +22,9 @@ namespace Lms.Infrastructure.Services
             return await _bookRepository.DeleteBookAsync(bookId);
         }
 
-        public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync()
+        public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync(string query)
         {
-            return await _bookRepository.GetAllBooksAsync();
+            return await _bookRepository.GetAllBooksAsync(query);
         }
 
         public async Task<BooksEntity> GetBookByIdAsync(int bookId)

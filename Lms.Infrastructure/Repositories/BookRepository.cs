@@ -16,12 +16,13 @@ namespace Lms.Infrastructure.Repositories
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); ;
         }
-        public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync()
+        public async Task<IEnumerable<BooksEntity>> GetAllBooksAsync(string query)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
+                parameters.Add("@Query", query);
 
                 return await connection.QueryAsync<BooksEntity>(
                    "SP_Books",

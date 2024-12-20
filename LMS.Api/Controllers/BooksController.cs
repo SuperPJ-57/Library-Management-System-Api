@@ -21,11 +21,11 @@ namespace LMS.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(string? query=null)
         {
             try
             {
-                var books = await _mediator.Send(new GetAllBooksQuery(), CancellationToken.None);
+                var books = await _mediator.Send(new GetAllBooksQuery(query), CancellationToken.None);
                 if (books == null)
                 {
                     return NotFound();

@@ -18,13 +18,13 @@ namespace Lms.Infrastructure.Repositories
         }
 
         
-        public async Task<IEnumerable<AuthorsEntity>?> GetAllAuthorsAsync()
+        public async Task<IEnumerable<AuthorsEntity>?> GetAllAuthorsAsync(string query)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@flag", "S");
-
+                parameters.Add("@Query", query);
                 return await connection.QueryAsync<AuthorsEntity>(
                    "SP_Authors",
                    parameters,

@@ -48,7 +48,7 @@ namespace LMS.Api.Controllers
             try
             {
                 var overdueBorrowers = await _mediator.Send(new GetOverdueBorrowersQuery(), CancellationToken.None);
-                _notificationService.SendNotificationsToOverdueBorrowers();
+                //_notificationService.SendNotificationsToOverdueBorrowers();
                 if (overdueBorrowers == null)
                 {
                     return NotFound();

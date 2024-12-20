@@ -45,7 +45,7 @@ namespace LMS.Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
 
 
