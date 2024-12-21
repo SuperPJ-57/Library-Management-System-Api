@@ -28,6 +28,8 @@ BEGIN
 				-- Insert the BookCopy
 				INSERT INTO BookCopies (BarCode, BookId)
 				VALUES (@BarCode, @BookID);
+
+				select BarCode,BookId,IsAvailable from bookcopies where BarCode= SCOPE_IDENTITY();
 			end
             
 
@@ -96,12 +98,12 @@ BEGIN
         BEGIN
 			With BookCopiesDetail as
 			(
-				select Title,BC.BookId as BookId,BC.BarCode as BarCode, BC.IsAvailable as IsAvailable from
+				select Title,BC.BookId as BookId,ISBN,BC.BarCode as BarCode, BC.IsAvailable as IsAvailable from
 				Books B join BookCopies BC
 				on B.BookId = BC.BookId where IsDeleted = 0
 				
 			)
-			SELECT Title,BookId,BarCode,IsAvailable
+			SELECT Title,BookId,ISBN,BarCode,IsAvailable
 			FROM BookCopiesDetail 
             WHERE @BarCode is Null or BarCode= @BarCode
 			order by BookId;

@@ -10,6 +10,7 @@ namespace Lms.Application.DTOs
     {
         public int BookId { get; set; }
         public string Title { get; set; }
+        public string ISBN { get; set; }
         public int BarCode { get; set; }
         public bool IsAvailable { get; set; }
     }
